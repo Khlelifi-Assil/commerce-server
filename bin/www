@@ -1,0 +1,30 @@
+const http = require('http');
+const https = require('https');
+const fs  = require('fs');
+require('dotenv').config();
+const app = require('../server');
+
+
+const https_port = parseInt(process.env.HTTPS_PORT, 10) || 8000;
+
+if (process.env.NODE_ENV === 'production') {
+ const https_options = {
+   key: fs.readFileSync(__dirname +'/private.key'),
+   cert: fs.readFileSync(__dirname +'/certificate.crt')
+ };
+const https_server = https.createServer(https_options, app);
+https_server.listen(https_port, () => {
+  console.log(`The server is running at localhost:${https_port}` + ' ' + app.get('port'));
+});
+}
+
+const http_port = parseInt(process.env.HTTP_PORT, 10);
+app.set('port', https_port);
+
+const http_server = http.createServer(app);
+
+http_server.listen(http_port, () => {
+  console.log(`The server is running at localhost:${http_port}` + ' ' + app.get('port'));
+});
+
+
