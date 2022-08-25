@@ -21,30 +21,30 @@ const sequelizeSessionStore = new SessionStore({
     db: myDatabase,
 });
 const app = express()
-    , sitemap = sm.createSitemap ({
-    hostname: 'http://localhost:3000',
-    cacheTime: 600000,        // 600 sec - cache purge period
-    urls: [
-        { url: '/',  changefreq: 'weekly', priority: 0.8 },
-        { url: '/contact/',  changefreq: 'weekly', priority: 0.8 },
-        { url: '/price/',  changefreq: 'monthly',  priority: 0.8 },
-        { url: '/portfolio/', changefreq: 'monthly',  priority: 0.8 },    // changefreq: 'weekly',  priority: 0.5
-        { url: '/portfolio/id', changefreq: 'monthly',  priority: 0.8 },    // changefreq: 'weekly',  priority: 0.5
-        { url: '/news/',   img: "nurmaget.com" }
-    ]
-});
+    , sitemap = sm.createSitemap({
+        hostname: 'http://localhost:3000',
+        cacheTime: 600000,        // 600 sec - cache purge period
+        urls: [
+            { url: '/', changefreq: 'weekly', priority: 0.8 },
+            { url: '/contact/', changefreq: 'weekly', priority: 0.8 },
+            { url: '/price/', changefreq: 'monthly', priority: 0.8 },
+            { url: '/portfolio/', changefreq: 'monthly', priority: 0.8 },    // changefreq: 'weekly',  priority: 0.5
+            { url: '/portfolio/id', changefreq: 'monthly', priority: 0.8 },    // changefreq: 'weekly',  priority: 0.5
+            { url: '/news/', img: "nurmaget.com" }
+        ]
+    });
 
 if (process.env.NODE_ENV === 'production') {
 
     fs.writeFileSync("./build/sitemap.xml", sitemap.toString());
 
-    app.get('/sitemap.xml', function(req, res) {
-        sitemap.toXML( function (err, xml) {
+    app.get('/sitemap.xml', function (req, res) {
+        sitemap.toXML(function (err, xml) {
             if (err) {
                 return res.status(500).end();
             }
             res.header('Content-Type', 'application/xml');
-            res.send( xml );
+            res.send(xml);
         });
     });
 
@@ -52,7 +52,7 @@ if (process.env.NODE_ENV === 'production') {
     app.all('*', ensureSecure);
 }
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", process.env.PUBLIC_URL);
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Headers", "Origin,Content-Type, Authorization, x-id, Content-Length, X-Requested-With");
@@ -66,7 +66,7 @@ app.use(bodyParser.json());
 
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) =>
-    User.findById(id, {attributes: ['id', 'email']})
+    User.findById(id, { attributes: ['id', 'email'] })
         .then(user => {
             done(null, user)
             return null
@@ -92,8 +92,8 @@ app.use('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/build/index.html'))
 })
 
-function ensureSecure(req, res, next){
-    if(req.secure){
+function ensureSecure(req, res, next) {
+    if (req.secure) {
         // OK, continue
         return next();
     };
