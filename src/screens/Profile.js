@@ -1,80 +1,78 @@
-import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
-import { Transition } from 'react-transition-group';
-import Anchor from '../components/Anchor';
-import { RouterButton } from '../components/Button';
-import DecoderText from '../components/DecoderText';
-import ProgressiveImage from '../components/ProgressiveImage';
-import Svg from '../utils/Svg';
-import ProfileImg from '../assets/profile.jpg';
-import ProfileImgLarge from '../assets/profile-large.jpg';
-import ProfileImgPlaceholder from '../assets/profile-placeholder.jpg';
-import { Media } from '../utils/StyleUtils';
+import React from "react";
+import styled, { css, keyframes } from "styled-components";
+import { Transition } from "react-transition-group";
+import Anchor from "../components/Anchor";
+import { RouterButton } from "../components/Button";
+import DecoderText from "../components/DecoderText";
+import ProgressiveImage from "../components/ProgressiveImage";
+import Svg from "../utils/Svg";
+import ProfileImg from "../assets/profile.jpg";
+import ProfileImgLarge from "../assets/profile-large.jpg";
+import ProfileImgPlaceholder from "../assets/profile-placeholder.jpg";
+import { Media } from "../utils/StyleUtils";
 
-const SparrowLink = 'https://www.smartsparrow.com';
+const SparrowLink = "https://www.smartsparrow.com";
 
 const ProfileText = ({ status }) => (
   <React.Fragment>
     <ProfileTitle>
-      <DecoderText
-        text="О НАС"
-        start={status === 'entering'}
-        offset={140}
-      />
+      <DecoderText text="О НАС" start={status === "entering"} offset={140} />
     </ProfileTitle>
     <ProfileDescription status={status}>
-        Мы команда профессионалов, жаждущих и мотивированных к новым проектам <Anchor href={SparrowLink} target="_blank" rel="noopener noreferrer">Почему мы?</Anchor>.
+      Мы команда профессионалов, жаждущих и мотивированных к новым проектам{" "}
+      <Anchor href={SparrowLink} target="_blank" rel="noopener noreferrer">
+        Почему мы?
+      </Anchor>
+      .
     </ProfileDescription>
     <ProfileDescription status={status}>
-        За время своей работы мы разработали более 600 лендингов работающих во всех странах мира и генерирующих своим заказчикам тысячи обращений в сутки. Большинство клиентов заказали у нас по несколько лендингов на каждое направление своего бизнеса
+      За время своей работы мы разработали более 600 лендингов работающих во
+      всех странах мира и генерирующих своим заказчикам тысячи обращений в
+      сутки. Большинство клиентов заказали у нас по несколько лендингов на
+      каждое направление своего бизнеса
     </ProfileDescription>
   </React.Fragment>
 );
 
-const Profile = ({
-  id,
-  tabIndex,
-  visible,
-  sectionRef,
-}) => (
-    <ProfileSection id={id} ref={sectionRef} tabIndex={tabIndex}>
-      <Transition in={visible} timeout={0}>
-        {status => (
-          <ProfileContent>
-            <ProfileColumn>
-              <ProfileText status={status} />
-              <ProfileButton
-                secondary
-                status={status}
-                to="/contact"
-                href="/contact"
-                style={{ marginTop: 20 }}
-                icon="send"
-              >
-                Определить стоимость
+const Profile = ({ id, tabIndex, visible, sectionRef }) => (
+  <ProfileSection id={id} ref={sectionRef} tabIndex={tabIndex}>
+    <Transition in={visible} timeout={0}>
+      {(status) => (
+        <ProfileContent>
+          <ProfileColumn>
+            <ProfileText status={status} />
+            <ProfileButton
+              secondary
+              status={status}
+              to="/contact"
+              href="/contact"
+              style={{ marginTop: 20 }}
+              icon="send"
+            >
+              Определить стоимость
             </ProfileButton>
-            </ProfileColumn>
-            <ProfileColumn>
-              <ProfileTag status={status}>
-                <ProfileTagText status={status}>О нас</ProfileTagText>
-              </ProfileTag>
-              <ProfileImageContainer status={status}>
-                <ProfileImage
-                  status={status}
-                  visible={visible}
-                  placeholder={ProfileImgPlaceholder}
-                  srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
-                  sizes={`(max-width: ${Media.mobile}) 100vw, 480px`}
-                  alt="Me at the Torii on Miyajima, Japan"
-                />
-                <ProfileSvg icon="profile" status={status} />
-              </ProfileImageContainer>
-            </ProfileColumn>
-          </ProfileContent>
-        )}
-      </Transition>
-    </ProfileSection>
-  );
+          </ProfileColumn>
+          <ProfileColumn>
+            <ProfileTag status={status}>
+              <ProfileTagText status={status}>О нас</ProfileTagText>
+            </ProfileTag>
+            <ProfileImageContainer status={status}>
+              <ProfileImage
+                status={status}
+                visible={visible}
+                placeholder={ProfileImgPlaceholder}
+                srcSet={`${ProfileImg} 480w, ${ProfileImgLarge} 960w`}
+                sizes={`(max-width: ${Media.mobile}) 100vw, 480px`}
+                alt="Me at the Torii on Miyajima, Japan"
+              />
+              <ProfileSvg icon="profile" status={status} />
+            </ProfileImageContainer>
+          </ProfileColumn>
+        </ProfileContent>
+      )}
+    </Transition>
+  </ProfileSection>
+);
 
 const ProfileSection = styled.section`
   width: 100vw;
@@ -111,7 +109,7 @@ const ProfileSection = styled.section`
   }
 
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
-    padding: 0 ${props => props.theme.spacingOuter.mobile};
+    padding: 0 ${(props) => props.theme.spacingOuter.mobile};
   }
 
   @media ${Media.mobileLS} {
@@ -164,7 +162,9 @@ const ProfileDescription = styled.p`
   opacity: 0;
   transition: opacity 0.8s ease 0.2s;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     opacity: 1;
   `}
 
@@ -180,20 +180,22 @@ const ProfileTag = styled.div`
   align-items: center;
 
   &:before {
-    content: '';
+    content: "";
     position: relative;
     display: block;
     height: 2px;
     top: -1px;
-    background: ${props => props.theme.colorPrimary(1)};
+    background: ${(props) => props.theme.colorPrimary(1)};
     width: 96px;
     margin-right: 15px;
-    transition: all 0.4s ${props => props.theme.curveFastoutSlowin} 1s;
+    transition: all 0.4s ${(props) => props.theme.curveFastoutSlowin} 1s;
     transform: scale3d(0, 1, 1);
     transform-origin: left;
   }
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     &:before {
       transform: scale3d(1, 1, 1);
     }
@@ -207,12 +209,14 @@ const ProfileTag = styled.div`
 const ProfileTagText = styled.div`
   font-size: 16px;
   font-weight: 500;
-  color: ${props => props.theme.colorPrimary(1)};
+  color: ${(props) => props.theme.colorPrimary(1)};
   transform: translateX(-10px);
   opacity: 0;
-  transition: all 0.4s ${props => props.theme.curveFastoutSlowin} 1.3s;
+  transition: all 0.4s ${(props) => props.theme.curveFastoutSlowin} 1.3s;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     transform: translateX(0);
     opacity: 1;
   `}
@@ -245,8 +249,8 @@ const ProfileImageContainer = styled.div`
   max-width: 100%;
 
   &:before {
-    content: '';
-    background: ${props => props.theme.colorPrimary(1)};
+    content: "";
+    background: ${(props) => props.theme.colorPrimary(1)};
     position: absolute;
     top: 0;
     right: 0;
@@ -257,11 +261,14 @@ const ProfileImageContainer = styled.div`
     z-index: 16;
   }
 
-  ${props => props.status === 'entered' && css`
-    &:before {
-      animation: ${AnimProfileImage} 1.8s ${props.theme.curveFastoutSlowin} 0.6s;
-    }
-  `}
+  ${(props) =>
+    props.status === "entered" &&
+    css`
+      &:before {
+        animation: ${AnimProfileImage} 1.8s ${props.theme.curveFastoutSlowin}
+          0.6s;
+      }
+    `}
 `;
 
 const ProfileImage = styled(ProgressiveImage)`
@@ -271,7 +278,9 @@ const ProfileImage = styled(ProgressiveImage)`
   opacity: 0;
   transition: opacity 0.4s ease 1.5s;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     opacity: 1;
   `}
 `;
@@ -286,7 +295,9 @@ const ProfileSvg = styled(Svg)`
   opacity: 0;
   transition: opacity 0.4s ease 0.6s;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     opacity: 1;
   `}
 
@@ -303,7 +314,9 @@ const ProfileButton = styled(RouterButton)`
   opacity: 0;
   transition: opacity 0.8s ease 0.4s;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     opacity: 1;
   `}
 `;

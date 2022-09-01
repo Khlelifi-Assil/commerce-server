@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const OrderItem = sequelize.define('OrderItem', {
+  const OrderItem = sequelize.define("OrderItem", {
     content: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -7,10 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     complete: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-    }
+    },
   });
-    OrderItem.associate = (models) => {
-
-  };
+  OrderItem.associate = (models) => {};
   return OrderItem;
 };

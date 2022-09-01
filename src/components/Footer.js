@@ -1,12 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
-import Anchor from './Anchor';
-import { Media } from '../utils/StyleUtils';
+import React from "react";
+import styled from "styled-components";
+import Anchor from "./Anchor";
+import { Media } from "../utils/StyleUtils";
 
 const Footer = () => (
   <FooterContainer role="contentinfo">
-    <FooterDate>{`© ${new Date().getFullYear()}`} Веб студия Nurmaget.</FooterDate>
-    <Anchor secondary href="/humans.txt">Создания веб сайтов под ключ под ключ</Anchor>
+    <FooterDate>
+      {`© ${new Date().getFullYear()}`} Веб студия Nurmaget.
+    </FooterDate>
+    <Anchor secondary href="/humans.txt">
+      Создания веб сайтов под ключ под ключ
+    </Anchor>
   </FooterContainer>
 );
 
@@ -20,7 +24,7 @@ const FooterContainer = styled.footer`
   z-index: 16;
   position: relative;
   font-size: 16px;
-  color: ${props => props.theme.colorText(0.6)};
+  color: ${(props) => props.theme.colorText(0.6)};
 
   @media (max-width: ${Media.tablet}) {
     padding: 60px 20px;

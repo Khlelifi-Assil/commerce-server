@@ -1,26 +1,28 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import Loader from './Loader';
-import {Icon} from '../utils/Icon';
-import Theme from '../utils/Theme';
-import { ColorTint } from '../utils/StyleUtils';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Loader from "./Loader";
+import { Icon } from "../utils/Icon";
+import Theme from "../utils/Theme";
+import { ColorTint } from "../utils/StyleUtils";
 
 const ButtonContent = ({ iconRight, icon, children, secondary, loading }) => (
   <React.Fragment>
-    {icon && <ButtonIcon loading={loading} left icon={icon} secondary={secondary} />}
-    <ButtonText loading={loading} secondary={secondary}>{children}</ButtonText>
-    {iconRight && <ButtonIcon loading={loading} icon={iconRight} secondary={secondary} />}
+    {icon && (
+      <ButtonIcon loading={loading} left icon={icon} secondary={secondary} />
+    )}
+    <ButtonText loading={loading} secondary={secondary}>
+      {children}
+    </ButtonText>
+    {iconRight && (
+      <ButtonIcon loading={loading} icon={iconRight} secondary={secondary} />
+    )}
     {loading && <ButtonLoader size="24" color={Theme.colorBackground(1)} />}
   </React.Fragment>
 );
 
 const ProjectHeaderButton = ({ className, style, ...props }) => (
-  <ButtonContainer
-    className={className}
-    style={style}
-    {...props}
-  >
+  <ButtonContainer className={className} style={style} {...props}>
     <ButtonContent {...props} />
   </ButtonContainer>
 );
@@ -56,7 +58,9 @@ const ButtonLoader = styled(Loader)`
 
 const ButtonContainer = styled.button`
   background: none;
-${props => !props.secondary && `
+  ${(props) =>
+    !props.secondary &&
+    `
   background: ${ColorTint(props.theme.colorPrimary(1), 0.2)};
   `}
   height: 56px;
@@ -64,16 +68,18 @@ ${props => !props.secondary && `
   border: 0;
   margin: 0;
   cursor: pointer;
-  transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
+  transition: all 0.3s ${(props) => props.theme.curveFastoutSlowin};
   display: flex;
   display: inline-flex;
   align-items: center;
-  color: ${props => props.theme.colorBackground(1)};
+  color: ${(props) => props.theme.colorBackground(1)};
   text-decoration: none;
   font-family: inherit;
   position: relative;
 
-  ${props => !props.secondary && `
+  ${(props) =>
+    !props.secondary &&
+    `
     &:before {
       content: '';
       transition: all 0.4s ${props.theme.curveFastoutSlowin};
@@ -102,7 +108,10 @@ ${props => !props.secondary && `
     }
   `}
 
-  ${props => !props.disabled && !props.secondary && `
+  ${(props) =>
+    !props.disabled &&
+    !props.secondary &&
+    `
     &:hover,
     &:focus {
      
@@ -123,7 +132,9 @@ ${props => !props.secondary && `
     transition-duration: 0.1s;
   }
 
-  ${props => props.secondary && `
+  ${(props) =>
+    props.secondary &&
+    `
     background: none;
     
     padding: 0 10px;
@@ -160,12 +171,14 @@ ${props => !props.secondary && `
     }
   `}
 
-  ${props => props.icon && `
+  ${(props) =>
+    props.icon &&
+    `
     padding-right: 32px;
   `}
 `;
 
-const LinkButtonContainer = ButtonContainer.withComponent('a');
+const LinkButtonContainer = ButtonContainer.withComponent("a");
 const RouterButtonContainer = ButtonContainer.withComponent(Link);
 
 const ButtonText = styled.span`
@@ -174,24 +187,31 @@ const ButtonText = styled.span`
   position: relative;
   line-height: 1.2;
 
-  ${props => props.loading && `
+  ${(props) =>
+    props.loading &&
+    `
     visibility: hidden;
   `}
 
-  ${props => props.secondary ? `
+  ${(props) =>
+    props.secondary
+      ? `
     color: ${props.theme.colorWhite(1)};
-  `: `
+  `
+      : `
     color: ${props.theme.colorBackground(1)};
   `}
 `;
 
 const ButtonIcon = styled(Icon)`
-  margin-left: ${props => props.left ? '0' : '10px'};
-  margin-right: ${props => props.left ? '10px' : '0'};
-  transition: all 0.3s ${props => props.theme.curveFastoutSlowin};
-  fill: ${props => props.theme.colorBackground(1)};
+  margin-left: ${(props) => (props.left ? "0" : "10px")};
+  margin-right: ${(props) => (props.left ? "10px" : "0")};
+  transition: all 0.3s ${(props) => props.theme.curveFastoutSlowin};
+  fill: ${(props) => props.theme.colorBackground(1)};
 
-  ${props => props.secondary && `
+  ${(props) =>
+    props.secondary &&
+    `
     fill: ${props.theme.colorPrimary(1)};
   `}
 
@@ -201,12 +221,16 @@ const ButtonIcon = styled(Icon)`
   ${LinkButtonContainer}:focus &,
   ${RouterButtonContainer}:hover &,
   ${RouterButtonContainer}:focus & {
-    ${props => props.icon === 'arrowRight' && `
+    ${(props) =>
+      props.icon === "arrowRight" &&
+      `
       transform: translate3d(3px, 0, 0);
     `}
   }
 
-  ${props => props.loading && `
+  ${(props) =>
+    props.loading &&
+    `
     visibility: hidden;
   `}
 `;

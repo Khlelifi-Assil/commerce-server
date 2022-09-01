@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import styled from 'styled-components';
+import React, { PureComponent } from "react";
+import styled from "styled-components";
 
 export default class ProgressiveImage extends PureComponent {
   state = {
@@ -8,10 +8,10 @@ export default class ProgressiveImage extends PureComponent {
 
   onLoad = () => {
     this.setState({ loaded: true });
-  }
+  };
 
   getSrcSet = (visible, srcSet) => {
-    const lazyLoad = typeof visible !== 'undefined';
+    const lazyLoad = typeof visible !== "undefined";
 
     if (lazyLoad && !visible) {
       return null;
@@ -22,10 +22,11 @@ export default class ProgressiveImage extends PureComponent {
     }
 
     return srcSet;
-  }
+  };
 
   render() {
-    const { placeholder, className, style, srcSet, visible, ...props } = this.props;
+    const { placeholder, className, style, srcSet, visible, ...props } =
+      this.props;
     const { loaded } = this.state;
     const actualSrcSet = this.getSrcSet(visible, srcSet);
 
@@ -45,7 +46,7 @@ export default class ProgressiveImage extends PureComponent {
           role="presentation"
         />
       </ImageContainer>
-    )
+    );
   }
 }
 
@@ -62,7 +63,7 @@ const ImagePlaceholder = styled.img`
   display: block;
   position: relative;
   z-index: 1;
-  opacity: ${props => props.loaded ? 0 : 1};
+  opacity: ${(props) => (props.loaded ? 0 : 1)};
 `;
 
 const ImageActual = styled.img`
@@ -74,5 +75,5 @@ const ImageActual = styled.img`
   bottom: 0;
   left: 0;
   display: block;
-  opacity: ${props => props.loaded ? 1 : 0};
+  opacity: ${(props) => (props.loaded ? 1 : 0)};
 `;

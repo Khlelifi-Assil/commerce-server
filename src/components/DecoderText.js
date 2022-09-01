@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import styled from 'styled-components';
+import React, { PureComponent } from "react";
+import styled from "styled-components";
 
 export default class DecoderText extends PureComponent {
   constructor(props) {
@@ -7,35 +7,94 @@ export default class DecoderText extends PureComponent {
 
     const { text, offset = 100 } = this.props;
 
-    this.content = text.split('');
+    this.content = text.split("");
     this.startTime = 0;
     this.elapsedTime = 0;
     this.running = false;
     this.timeOffset = offset;
     this.fps = 24;
     this.chars = [
-      'ア', 'イ', 'ウ', 'エ', 'オ',
-      'カ', 'キ', 'ク', 'ケ', 'コ',
-      'サ', 'シ', 'ス', 'セ', 'ソ',
-      'タ', 'チ', 'ツ', 'テ', 'ト',
-      'ナ', 'ニ', 'ヌ', 'ネ', 'ノ',
-      'ハ', 'ヒ', 'フ', 'ヘ', 'ホ',
-      'マ', 'ミ', 'ム', 'メ', 'モ',
-      'ヤ', 'ユ', 'ヨ', 'ー',
-      'ラ', 'リ', 'ル', 'レ', 'ロ',
-      'ワ', 'ヰ', 'ヱ', 'ヲ', 'ン',
-      'ガ', 'ギ', 'グ', 'ゲ', 'ゴ',
-      'ザ', 'ジ', 'ズ', 'ゼ', 'ゾ',
-      'ダ', 'ヂ', 'ヅ', 'デ', 'ド',
-      'バ', 'ビ', 'ブ', 'ベ', 'ボ',
-      'パ', 'ピ', 'プ', 'ペ', 'ポ',
+      "ア",
+      "イ",
+      "ウ",
+      "エ",
+      "オ",
+      "カ",
+      "キ",
+      "ク",
+      "ケ",
+      "コ",
+      "サ",
+      "シ",
+      "ス",
+      "セ",
+      "ソ",
+      "タ",
+      "チ",
+      "ツ",
+      "テ",
+      "ト",
+      "ナ",
+      "ニ",
+      "ヌ",
+      "ネ",
+      "ノ",
+      "ハ",
+      "ヒ",
+      "フ",
+      "ヘ",
+      "ホ",
+      "マ",
+      "ミ",
+      "ム",
+      "メ",
+      "モ",
+      "ヤ",
+      "ユ",
+      "ヨ",
+      "ー",
+      "ラ",
+      "リ",
+      "ル",
+      "レ",
+      "ロ",
+      "ワ",
+      "ヰ",
+      "ヱ",
+      "ヲ",
+      "ン",
+      "ガ",
+      "ギ",
+      "グ",
+      "ゲ",
+      "ゴ",
+      "ザ",
+      "ジ",
+      "ズ",
+      "ゼ",
+      "ゾ",
+      "ダ",
+      "ヂ",
+      "ヅ",
+      "デ",
+      "ド",
+      "バ",
+      "ビ",
+      "ブ",
+      "ベ",
+      "ボ",
+      "パ",
+      "ピ",
+      "プ",
+      "ペ",
+      "ポ",
     ];
 
     this.state = {
       position: 0,
       started: false,
-      output: [{ type: 'code', value: '' }],
-    }
+      output: [{ type: "code", value: "" }],
+    };
   }
 
   componentDidMount() {
@@ -55,8 +114,10 @@ export default class DecoderText extends PureComponent {
   }
 
   startTimeout = () => {
-    this.timeout = setTimeout(() => { this.start() }, 300);
-  }
+    this.timeout = setTimeout(() => {
+      this.start();
+    }, 300);
+  };
 
   start = () => {
     this.startTime = Date.now();
@@ -64,9 +125,9 @@ export default class DecoderText extends PureComponent {
     this.running = true;
     this.setState({ started: true });
     this.anim();
-  }
+  };
 
-  stop = () => this.running = false;
+  stop = () => (this.running = false);
 
   anim = () => {
     const { position } = this.state;
@@ -95,35 +156,36 @@ export default class DecoderText extends PureComponent {
 
     const textArray = this.shuffle(this.content, this.chars, position);
     this.setState({ output: textArray });
-  }
+  };
 
-  setValue = value => {
-    return value.map(value => ({
-      type: 'actual',
+  setValue = (value) => {
+    return value.map((value) => ({
+      type: "actual",
       value,
     }));
-  }
+  };
 
   shuffle = (content, chars, position) => {
     return content.map((value, index) => {
       if (index < position) {
-        return { type: 'actual', value };
+        return { type: "actual", value };
       }
 
       return {
-        type: 'code',
+        type: "code",
         value: this.getRandCharacter(chars),
-      }
+      };
     });
-  }
+  };
 
-  getRandCharacter = chars => {
+  getRandCharacter = (chars) => {
     const randNum = Math.floor(Math.random() * chars.length);
-    const lowChoice = - .5 + Math.random();
+    const lowChoice = -0.5 + Math.random();
     const picketCharacter = chars[randNum];
-    const chosen = lowChoice < 0 ? picketCharacter.toLowerCase() : picketCharacter;
+    const chosen =
+      lowChoice < 0 ? picketCharacter.toLowerCase() : picketCharacter;
     return chosen;
-  }
+  };
 
   render() {
     const { text, className, style } = this.props;
@@ -132,25 +194,19 @@ export default class DecoderText extends PureComponent {
     return (
       <DecoderSpan aria-label={text} className={className} style={style}>
         {output.map((item, index) => {
-          if (item.type === 'actual') {
+          if (item.type === "actual") {
             return (
-              <span
-                key={`${item.value}_${index}`}
-                aria-hidden="true"
-              >
+              <span key={`${item.value}_${index}`} aria-hidden="true">
                 {item.value}
               </span>
-            )
+            );
           }
 
           return (
-            <DecoderCode
-              key={`${item.value}_${index}`}
-              aria-hidden="true"
-            >
+            <DecoderCode key={`${item.value}_${index}`} aria-hidden="true">
               {item.value}
             </DecoderCode>
-          )
+          );
         })}
       </DecoderSpan>
     );
@@ -159,7 +215,7 @@ export default class DecoderText extends PureComponent {
 
 const DecoderSpan = styled.span`
   &:after {
-    content: '_';
+    content: "_";
     opacity: 0;
   }
 `;
@@ -167,6 +223,6 @@ const DecoderSpan = styled.span`
 const DecoderCode = styled.span`
   opacity: 0.8;
   font-weight: 400;
-  font-family: 'Hiragino Sans', sans-serif;
+  font-family: "Hiragino Sans", sans-serif;
   line-height: 0;
 `;

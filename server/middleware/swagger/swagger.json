@@ -17,25 +17,15 @@
       "description": "API for nurmaget in the system"
     }
   ],
-  "schemes": [
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/portfolio": {
       "post": {
-        "tags": [
-          "portfolio"
-        ],
+        "tags": ["portfolio"],
         "description": "Create new portfolio in system",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "New portfolio is created",
@@ -62,9 +52,7 @@
             "type": "number"
           }
         ],
-        "tags": [
-          "portfolio"
-        ],
+        "tags": ["portfolio"],
         "summary": "Get all portfolio in system by type",
         "responses": {
           "200": {
@@ -87,9 +75,7 @@
         }
       ],
       "get": {
-        "tags": [
-          "portfolio"
-        ],
+        "tags": ["portfolio"],
         "summary": "Get portfolio with given ID",
         "responses": {
           "200": {
@@ -104,12 +90,7 @@
   },
   "definitions": {
     "Portfolios": {
-      "required": [
-        "title",
-        "type",
-        "bgImage",
-        "id"
-      ],
+      "required": ["title", "type", "bgImage", "id"],
       "properties": {
         "id": {
           "type": "string",

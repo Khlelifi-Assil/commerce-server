@@ -1,19 +1,19 @@
-import React from 'react';
-import styled from 'styled-components';
-import TextArea from './TextArea';
+import React from "react";
+import styled from "styled-components";
+import TextArea from "./TextArea";
 
 const Input = ({
-    id,
-    label,
-    hasValue,
-    multiline,
-    className,
-    type,
-  ...props,
+  id,
+  label,
+  hasValue,
+  multiline,
+  className,
+  type,
+  ...props
 }) => {
   return (
     <InputWrapper className={className}>
-      {!multiline &&
+      {!multiline && (
         <InputElement
           id={id}
           name={id}
@@ -21,26 +21,22 @@ const Input = ({
           type={type}
           {...props}
         />
-      }
-      {!!multiline &&
+      )}
+      {!!multiline && (
         <InputTextArea
           id={id}
           name={id}
           aria-labelledby={`${id}-label`}
           {...props}
         />
-      }
+      )}
       <InputUnderline />
-      <InputLabel
-        id={`${id}-label`}
-        hasValue={hasValue}
-        htmlFor={id}
-      >
+      <InputLabel id={`${id}-label`} hasValue={hasValue} htmlFor={id}>
         {label}
       </InputLabel>
     </InputWrapper>
   );
-}
+};
 
 const InputWrapper = styled.div`
   position: relative;
@@ -50,8 +46,8 @@ const InputWrapper = styled.div`
 
 const InputElement = styled.input`
   background: transparent;
-  color: ${props => props.theme.colorText(1)};
-  box-shadow: inset 0 -2px 0 0 ${props => props.theme.colorText(0.2)};
+  color: ${(props) => props.theme.colorText(1)};
+  box-shadow: inset 0 -2px 0 0 ${(props) => props.theme.colorText(0.2)};
   transition: box-shadow 0.4s ease;
   height: 34px;
   width: 100%;
@@ -72,25 +68,25 @@ const InputElement = styled.input`
   }
 
   &::-webkit-contacts-auto-fill-button {
-    background-color: ${props => props.theme.colorText(0.4)};
+    background-color: ${(props) => props.theme.colorText(0.4)};
     transition: background-color 0.3s ease;
   }
 
   &::-webkit-contacts-auto-fill-button:hover {
-    background-color: ${props => props.theme.colorPrimary(1)};
+    background-color: ${(props) => props.theme.colorPrimary(1)};
   }
 `;
 
 const InputTextArea = InputElement.withComponent(TextArea);
 
 const InputUnderline = styled.div`
-  background: ${props => props.theme.colorPrimary(1)};
+  background: ${(props) => props.theme.colorPrimary(1)};
   transform: scale3d(0, 1, 1);
   width: 100%;
   height: 2px;
   position: absolute;
   bottom: 0;
-  transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
+  transition: all 0.4s ${(props) => props.theme.curveFastoutSlowin};
   transform-origin: left;
 
   ${InputElement}:focus ~ &,
@@ -99,26 +95,28 @@ const InputUnderline = styled.div`
   }
 `;
 
-const InputLabelFocus = props => `
+const InputLabelFocus = (props) => `
   color: ${props.theme.colorText(0.4)};
   transform: scale(0.8) translateY(-28px);
 `;
 
 const InputLabel = styled.label`
-  color: ${props => props.theme.colorText(0.8)};
+  color: ${(props) => props.theme.colorText(0.8)};
   position: absolute;
   top: 18px;
   left: 0;
   display: block;
   transform-origin: top left;
-  transition: all 0.4s ${props => props.theme.curveFastoutSlowin};
+  transition: all 0.4s ${(props) => props.theme.curveFastoutSlowin};
 
   ${InputElement}:focus ~ &,
   ${InputTextArea}:focus ~ & {
-    ${props => InputLabelFocus(props)}
+    ${(props) => InputLabelFocus(props)}
   }
 
-  ${props => props.hasValue && `
+  ${(props) =>
+    props.hasValue &&
+    `
     ${InputLabelFocus(props)}
   `}
 `;

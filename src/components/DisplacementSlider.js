@@ -1,7 +1,7 @@
-import React from 'react';
-import * as THREE from 'three';
-import styled from 'styled-components';
-import { Easing, Tween, autoPlay } from 'es6-tween';
+import React from "react";
+import * as THREE from "three";
+import styled from "styled-components";
+import { Easing, Tween, autoPlay } from "es6-tween";
 
 const vertex = `
   varying vec2 vUv;
@@ -82,14 +82,14 @@ export default class DispalcementSlider extends React.Component {
   loadImages = (images) => {
     const loader = new THREE.TextureLoader();
 
-    return images.map(imgSrc => {
-      console.log(imgSrc)
+    return images.map((imgSrc) => {
+      console.log(imgSrc);
       const image = loader.load(imgSrc);
       image.magFilter = image.minFilter = THREE.LinearFilter;
       image.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
       return image;
     });
-  }
+  };
 
   addObjects = (sliderImages) => {
     this.material = new THREE.ShaderMaterial({
@@ -101,7 +101,7 @@ export default class DispalcementSlider extends React.Component {
       vertexShader: vertex,
       fragmentShader: fragment,
       transparent: false,
-      opacity: 1.0
+      opacity: 1.0,
     });
 
     const geometry = new THREE.PlaneBufferGeometry(
@@ -113,45 +113,45 @@ export default class DispalcementSlider extends React.Component {
     const object = new THREE.Mesh(geometry, this.material);
     object.position.set(0, 0, 0);
     this.scene.add(object);
-  }
+  };
 
   animate = () => {
     requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
-  }
+  };
 
   nextImage = () => {
     if (this.animating) return;
     this.animating = true;
-    const nextIndex = this.imageIndex < this.sliderImages.length - 1
-      ? this.imageIndex + 1
-      : 0
+    const nextIndex =
+      this.imageIndex < this.sliderImages.length - 1 ? this.imageIndex + 1 : 0;
 
     this.imageIndex = nextIndex;
     this.material.uniforms.nextImage.value = this.sliderImages[nextIndex];
     this.material.uniforms.nextImage.needsUpdate = true;
 
     new Tween(this.material.uniforms.dispFactor)
-      .to({value: 1}, 1400)
+      .to({ value: 1 }, 1400)
       .easing(Easing.Exponential.InOut)
-      .on('complete', () => {
-        this.material.uniforms.currentImage.value = this.sliderImages[nextIndex];
+      .on("complete", () => {
+        this.material.uniforms.currentImage.value =
+          this.sliderImages[nextIndex];
         this.material.uniforms.currentImage.needsUpdate = true;
         this.material.uniforms.dispFactor.value = 0.0;
         this.animating = false;
       })
       .start();
-  }
+  };
 
   render() {
     const { images } = this.props;
     return (
       <Container ref={this.container} onClick={this.nextImage}>
-        {images.map(image => (
+        {images.map((image) => (
           <img src={image} alt="A thing" />
         ))}
       </Container>
-    )
+    );
   }
 }
 

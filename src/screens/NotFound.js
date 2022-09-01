@@ -1,13 +1,13 @@
-import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import styled, { css, keyframes } from 'styled-components';
-import { Transition } from 'react-transition-group';
-import { Helmet } from 'react-helmet';
-import { RouterButton } from '../components/Button';
-import DecoderText from '../components/DecoderText';
-import { Media } from '../utils/StyleUtils';
-import Notfound from '../assets/notfound.mp4';
-import NotfoundPoster from '../assets/notfound.jpg';
+import React from "react";
+import { NavLink, Link } from "react-router-dom";
+import styled, { css, keyframes } from "styled-components";
+import { Transition } from "react-transition-group";
+import { Helmet } from "react-helmet";
+import { RouterButton } from "../components/Button";
+import DecoderText from "../components/DecoderText";
+import { Media } from "../utils/StyleUtils";
+import Notfound from "../assets/notfound.mp4";
+import NotfoundPoster from "../assets/notfound.jpg";
 
 const NotFound = () => (
   <NotFoundSection>
@@ -17,7 +17,7 @@ const NotFound = () => (
     </Helmet>
 
     <Transition appear in={true} timeout={0}>
-      {status => (
+      {(status) => (
         <React.Fragment>
           <NotfoundDetails>
             <NotFoundText>
@@ -26,7 +26,8 @@ const NotFound = () => (
                 <DecoderText text="Error: Redacted" start offset={100} />
               </NotFoundSubHeading>
               <NotFoundDescription status={status}>
-                  Эта страница не найдена. Либо eщё не существует, либо была удалена. Или, может быть, вас нет.
+                Эта страница не найдена. Либо eщё не существует, либо была
+                удалена. Или, может быть, вас нет.
               </NotFoundDescription>
               <NotFoundButton
                 secondary
@@ -34,7 +35,8 @@ const NotFound = () => (
                 to="/"
                 href="/"
                 icon="chevronRight"
-              >Вернуться на главную страницу
+              >
+                Вернуться на главную страницу
               </NotFoundButton>
             </NotFoundText>
           </NotfoundDetails>
@@ -50,7 +52,8 @@ const NotFound = () => (
             >
               <source src={Notfound} type="video/mp4" />
             </NotFoundVideo>
-            <NotFoundCredit status={status}
+            <NotFoundCredit
+              status={status}
               href="https://twitter.com/ruinergame"
               target="_blank"
               rel="noopener noreferrer"
@@ -70,11 +73,11 @@ const NotFoundSection = styled.section`
   height: 100vh;
   padding-left: 140px;
 
-  @media(max-width: ${Media.tablet}) {
+  @media (max-width: ${Media.tablet}) {
     padding-left: 80px;
   }
 
-  @media(max-width: ${Media.mobile}) {
+  @media (max-width: ${Media.mobile}) {
     grid-template-columns: 100%;
     padding-left: 0;
     padding-top: 80px;
@@ -108,7 +111,7 @@ const NotFoundVideoContainer = styled.div`
   height: 100%;
   overflow: hidden;
   position: relative;
-  border: 30px solid ${props => props.theme.colorBackground(1)};
+  border: 30px solid ${(props) => props.theme.colorBackground(1)};
 
   @media (max-width: ${Media.mobile}) {
     order: 1;
@@ -116,9 +119,11 @@ const NotFoundVideoContainer = styled.div`
   }
 
   &:after {
-    content: '';
-    background: ${props => props.theme.colorPrimary(1)};
-    animation: ${css`${AnimVideo} 1.8s ${props => props.theme.curveFastoutSlowin}`};
+    content: "";
+    background: ${(props) => props.theme.colorPrimary(1)};
+    animation: ${css`
+      ${AnimVideo} 1.8s ${(props) => props.theme.curveFastoutSlowin}
+    `};
     position: absolute;
     top: 0;
     right: 0;
@@ -129,11 +134,14 @@ const NotFoundVideoContainer = styled.div`
     z-index: 16;
   }
 
-  ${props => props.status === 'entered' && css`
-    &:before {
-      animation: ${AnimVideo} 1.8s ${props.theme.curveFastoutSlowin};
-    }
-  `}`;
+  ${(props) =>
+    props.status === "entered" &&
+    css`
+      &:before {
+        animation: ${AnimVideo} 1.8s ${props.theme.curveFastoutSlowin};
+      }
+    `}
+`;
 
 const NotFoundVideo = styled.video`
   object-fit: cover;
@@ -145,7 +153,9 @@ const NotFoundVideo = styled.video`
   transition-delay: 1s;
   transition-duration: 0.4s;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     opacity: 1;
   `}
 
@@ -155,8 +165,8 @@ const NotFoundVideo = styled.video`
 `;
 
 const NotFoundCredit = styled.a`
-  color: ${props => props.theme.colorText(0.4)};
-  background: ${props => props.theme.colorBackground(0.6)};
+  color: ${(props) => props.theme.colorText(0.4)};
+  background: ${(props) => props.theme.colorBackground(0.6)};
   padding: 4px 8px;
   font-size: 14px;
   position: absolute;
@@ -169,13 +179,15 @@ const NotFoundCredit = styled.a`
   transition-duration: 0.4s;
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     opacity: 1;
   `}
 
   &:hover,
   &:focus {
-    color: ${props => props.theme.colorText(1)};
+    color: ${(props) => props.theme.colorText(1)};
   }
 `;
 
@@ -186,7 +198,7 @@ const NotfoundDetails = styled.div`
   padding: 0 40px;
   height: 100%;
 
-  @media(max-width: ${Media.mobile}) {
+  @media (max-width: ${Media.mobile}) {
     padding: 0 30px;
     order: 2;
   }
@@ -204,7 +216,7 @@ const NotFoundTitle = styled.h1`
   font-size: 86px;
   font-weight: 500;
   transition-property: transform, opacity;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
   transition-delay: 0.1s;
   transform: translate3d(0, 40px, 0);
@@ -214,7 +226,9 @@ const NotFoundTitle = styled.h1`
     font-size: 64px;
   }
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -227,9 +241,9 @@ const NotFoundSubHeading = styled.h2`
   margin-bottom: 24px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: ${props => props.theme.colorText(0.4)};
+  color: ${(props) => props.theme.colorText(0.4)};
   transition-property: transform, opacity;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
   transition-delay: 0.2s;
   transform: translate3d(0, 40px, 0);
@@ -239,27 +253,31 @@ const NotFoundSubHeading = styled.h2`
     font-size: 18px;
   }
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
 `;
 
 const NotFoundDescription = styled.p`
-  color: ${props => props.theme.colorText(0.9)};
+  color: ${(props) => props.theme.colorText(0.9)};
   margin: 0;
   margin-bottom: 20px;
   padding: 0;
   font-size: 18px;
   line-height: 1.4;
   transition-property: transform, opacity;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
   transition-delay: 0.3s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -267,7 +285,7 @@ const NotFoundDescription = styled.p`
 
 const NotFoundButton = styled(RouterButton)`
   transition-property: transform, opacity;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
   transition-delay: 0.4s;
   transform: translate3d(0, 40px, 0);
@@ -275,7 +293,9 @@ const NotFoundButton = styled(RouterButton)`
   align-self: flex-start;
   padding-left: 3px;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}

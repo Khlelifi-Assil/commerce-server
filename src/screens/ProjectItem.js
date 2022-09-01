@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Transition } from 'react-transition-group';
-import { Media } from '../utils/StyleUtils';
-import { RouterButton, LinkButton } from '../components/Button';
-import ProgressiveImage from '../components/ProgressiveImage';
-import Svg from '../utils/Svg';
-import phone from '../assets/phone.png';
-import phoneLarge from '../assets/phone-large.png';
-import phonePlaceholder from '../assets/phone-placeholder.png';
+import React from "react";
+import styled from "styled-components";
+import { Transition } from "react-transition-group";
+import { Media } from "../utils/StyleUtils";
+import { RouterButton, LinkButton } from "../components/Button";
+import ProgressiveImage from "../components/ProgressiveImage";
+import Svg from "../utils/Svg";
+import phone from "../assets/phone.png";
+import phoneLarge from "../assets/phone-large.png";
+import phonePlaceholder from "../assets/phone-placeholder.png";
 
 const ProjectItem = ({
   id,
@@ -26,19 +26,28 @@ const ProjectItem = ({
   buttonTo,
 }) => {
   return (
-    <ProjectItemSection index={index} ref={sectionRef} id={id} tabIndex={tabIndex}>
+    <ProjectItemSection
+      index={index}
+      ref={sectionRef}
+      id={id}
+      tabIndex={tabIndex}
+    >
       <ProjectItemContent>
         <Transition in={visible} timeout={0}>
-          {status => (
+          {(status) => (
             <React.Fragment>
               <ProjectItemDetails>
                 <ProjectItemIndex status={status}>
-                  <ProjectItemIndexNumber status={status}>{index}</ProjectItemIndexNumber>
+                  <ProjectItemIndexNumber status={status}>
+                    {index}
+                  </ProjectItemIndexNumber>
                 </ProjectItemIndex>
                 <ProjectItemTitle status={status}>{title}</ProjectItemTitle>
-                <ProjectItemDescription status={status}>{description}</ProjectItemDescription>
+                <ProjectItemDescription status={status}>
+                  {description}
+                </ProjectItemDescription>
                 <ProjectItemButton status={status}>
-                  {buttonLink ?
+                  {buttonLink ? (
                     <LinkButton
                       href={buttonLink}
                       rel="noopener noreferrer"
@@ -46,12 +55,15 @@ const ProjectItem = ({
                     >
                       {buttonText}
                     </LinkButton>
-                    : <RouterButton to={buttonTo} iconRight="arrowRight">{buttonText}</RouterButton>
-                  }
+                  ) : (
+                    <RouterButton to={buttonTo} iconRight="arrowRight">
+                      {buttonText}
+                    </RouterButton>
+                  )}
                 </ProjectItemButton>
               </ProjectItemDetails>
               <ProjectItemPreview>
-                {imageType === 'laptop' &&
+                {imageType === "laptop" && (
                   <ProjectItemPreviewContentLaptop>
                     <ProjectItemImageLaptop
                       status={status}
@@ -61,33 +73,41 @@ const ProjectItem = ({
                       placeholder={imagePlaceholder[0]}
                       sizes={`(max-width: ${Media.mobile}) 300px,(max-width: ${Media.tablet}) 420px,(max-width: ${Media.desktop}) 860px, 900px`}
                     />
-                    <ProjectItemImageLaptopSvg status={status} icon="projects" />
+                    <ProjectItemImageLaptopSvg
+                      status={status}
+                      icon="projects"
+                    />
                   </ProjectItemPreviewContentLaptop>
-                }
-                {imageType === 'phone' &&
+                )}
+                {imageType === "phone" && (
                   <ProjectItemPreviewContentPhone>
                     <ProjectItemPhoneImageSvg status={status} icon="projects" />
-                    {imageSrc && imageSrc.map((src, index) => (
-                      <ProjectItemPhone first={index === 0} status={status} key={`img_${index}`}>
-                        <ProjectItemPhoneFrame
-                          visible={visible}
-                          srcSet={`${phone} 414w, ${phoneLarge} 828w`}
-                          sizes={`(max-width: ${Media.tablet}) 248px, 414px`}
-                          alt=""
-                          role="presentation"
-                          placeholder={phonePlaceholder}
-                        />
-                        <ProjectItemPhoneImage
-                          visible={visible}
-                          srcSet={imageSrc[index]}
-                          alt={imageAlt[index]}
-                          placeholder={imagePlaceholder[index]}
-                          sizes={`(max-width: ${Media.tablet}) 152px, 254px`}
-                        />
-                      </ProjectItemPhone>
-                    ))}
+                    {imageSrc &&
+                      imageSrc.map((src, index) => (
+                        <ProjectItemPhone
+                          first={index === 0}
+                          status={status}
+                          key={`img_${index}`}
+                        >
+                          <ProjectItemPhoneFrame
+                            visible={visible}
+                            srcSet={`${phone} 414w, ${phoneLarge} 828w`}
+                            sizes={`(max-width: ${Media.tablet}) 248px, 414px`}
+                            alt=""
+                            role="presentation"
+                            placeholder={phonePlaceholder}
+                          />
+                          <ProjectItemPhoneImage
+                            visible={visible}
+                            srcSet={imageSrc[index]}
+                            alt={imageAlt[index]}
+                            placeholder={imagePlaceholder[index]}
+                            sizes={`(max-width: ${Media.tablet}) 152px, 254px`}
+                          />
+                        </ProjectItemPhone>
+                      ))}
                   </ProjectItemPreviewContentPhone>
-                }
+                )}
               </ProjectItemPreview>
             </React.Fragment>
           )}
@@ -95,7 +115,7 @@ const ProjectItem = ({
       </ProjectItemContent>
     </ProjectItemSection>
   );
-}
+};
 
 const ProjectItemContent = styled.div`
   width: 100%;
@@ -143,7 +163,7 @@ const ProjectItemSection = styled.section`
   padding-right: 80px;
   padding-bottom: 40px;
   padding-left: 220px;
-  margin-top: ${props => props.index === '01' ? '0' : '120px'};
+  margin-top: ${(props) => (props.index === "01" ? "0" : "120px")};
   margin-bottom: 120px;
   position: relative;
   display: flex;
@@ -176,7 +196,7 @@ const ProjectItemSection = styled.section`
     padding-left: 160px;
     padding-right: 80px;
     height: auto;
-    margin-top: ${props => props.index === '01' ? '0' : '60px'};
+    margin-top: ${(props) => (props.index === "01" ? "0" : "60px")};
     margin-bottom: 60px;
 
     &:nth-child(2n + 1) ${ProjectItemContent} {
@@ -193,12 +213,12 @@ const ProjectItemSection = styled.section`
   }
 
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
-    padding-right: ${props => props.theme.spacingOuter.mobile};
-    padding-left: ${props => props.theme.spacingOuter.mobile};
+    padding-right: ${(props) => props.theme.spacingOuter.mobile};
+    padding-left: ${(props) => props.theme.spacingOuter.mobile};
   }
   @media (max-width: ${Media.mobileSm}) {
-    padding-right: ${props => props.theme.spacingOuter.mobileSm};
-    padding-left: ${props => props.theme.spacingOuter.mobileSm};
+    padding-right: ${(props) => props.theme.spacingOuter.mobileSm};
+    padding-left: ${(props) => props.theme.spacingOuter.mobileSm};
   }
 `;
 
@@ -240,23 +260,25 @@ const ProjectItemIndex = styled.div`
   margin-bottom: 32px;
 
   &:before {
-    content: '';
+    content: "";
     position: relative;
     display: block;
     height: 2px;
     top: -1px;
-    background: ${props => props.theme.colorPrimary(1)};
+    background: ${(props) => props.theme.colorPrimary(1)};
     width: 96px;
     margin-right: 15px;
     transition-property: transform, opacity;
-    transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+    transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
     transition-duration: 0.4s;
     transition-delay: 1s;
     transform: scale3d(0, 1, 1);
     transform-origin: left;
   }
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     &:before {
       transform: scale3d(1, 1, 1);
     }
@@ -266,15 +288,17 @@ const ProjectItemIndex = styled.div`
 const ProjectItemIndexNumber = styled.span`
   font-size: 16px;
   font-weight: 500;
-  color: ${props => props.theme.colorPrimary(1)};
+  color: ${(props) => props.theme.colorPrimary(1)};
   transform: translateX(-10px);
   opacity: 0;
   transition-property: transform, opacity;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
   transition-duration: 0.4s;
   transition-delay: 1.3s;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     transform: translateX(0);
     opacity: 1;
   `}
@@ -287,15 +311,17 @@ const ProjectItemTitle = styled.h2`
   margin: 0;
   margin-bottom: 16px;
   padding: 0;
-  color: ${props => props.theme.colorText(1)};
+  color: ${(props) => props.theme.colorText(1)};
   transition-property: transform, opacity;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
   transition-delay: 0.4s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -312,16 +338,18 @@ const ProjectItemTitle = styled.h2`
 const ProjectItemDescription = styled.p`
   font-size: 18px;
   line-height: 1.4;
-  color: ${props => props.theme.colorText(0.8)};
+  color: ${(props) => props.theme.colorText(0.8)};
   margin-bottom: 38px;
   transition-property: transform, opacity;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
   transition-delay: 0.6s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -333,13 +361,15 @@ const ProjectItemDescription = styled.p`
 
 const ProjectItemButton = styled.div`
   transition-property: transform, opacity;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
   transition-duration: 0.8s;
   transition-delay: 0.8s;
   transform: translate3d(0, 40px, 0);
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -351,13 +381,15 @@ const ProjectItemImageLaptop = styled(ProgressiveImage)`
   transition-property: transform, opacity;
   transition-duration: 1s;
   transition-delay: 0.4s;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
   transform: translate3d(40px, 0, 0);
   opacity: 0;
   position: relative;
   right: -140px;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -367,7 +399,7 @@ const ProjectItemImageLaptop = styled(ProgressiveImage)`
     height: 542px;
   }
 
-  @media(max-width: 1245px) {
+  @media (max-width: 1245px) {
     width: 761px;
     height: 491px;
   }
@@ -394,7 +426,9 @@ const ProjectItemImageLaptopSvg = styled(Svg)`
   opacity: 0;
   transition: opacity 0.4s ease 0.6s;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     opacity: 1;
   `}
 
@@ -417,13 +451,15 @@ const ProjectItemPhone = styled.div`
   justify-content: center;
   opacity: 0;
   transition-duration: 1s;
-  transition-timing-function: ${props => props.theme.curveFastoutSlowin};
+  transition-timing-function: ${(props) => props.theme.curveFastoutSlowin};
   transition-property: transform, opacity;
   width: 100%;
   max-width: 100%;
   flex: 1 0 100%;
 
-  ${props => props.first ? `
+  ${(props) =>
+    props.first
+      ? `
     left: calc(50% - 140px);
     top: -120px;
     transform: translate3d(0, 80px, 0);
@@ -433,7 +469,8 @@ const ProjectItemPhone = styled.div`
       left: calc(50% - 48px);
       top: -60px;
     }
-  `: `
+  `
+      : `
     left: calc(-50% + 20px);
     top: 120px;
     transform: translate3d(0, 80px, 0);
@@ -445,7 +482,9 @@ const ProjectItemPhone = styled.div`
     }
   `}
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     transform: translate3d(0, 0, 0);
     opacity: 1;
   `}
@@ -463,7 +502,7 @@ const ProjectItemPhoneFrame = styled(ProgressiveImage)`
 `;
 
 const ProjectItemPhoneImage = styled(ProgressiveImage)`
-  box-shadow: 0 0 0 2px #1C1C1C;
+  box-shadow: 0 0 0 2px #1c1c1c;
   position: relative;
   top: -14px;
   width: 254px;
@@ -475,7 +514,7 @@ const ProjectItemPhoneImage = styled(ProgressiveImage)`
   }
 
   @media (max-width: ${Media.tablet}) {
-    box-shadow: 0 0 0 1px #1C1C1C;
+    box-shadow: 0 0 0 1px #1c1c1c;
     width: 152px;
     height: 270px;
     top: -9px;
@@ -489,7 +528,9 @@ const ProjectItemPhoneImageSvg = styled(Svg)`
   transition: opacity 0.6s ease 0.6s;
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     opacity: 1;
   `}
 

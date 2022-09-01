@@ -1,39 +1,37 @@
-const Order = require('../models').Orders;
-const senderMail = require('../mail/mail.service').mail;
-
+const Order = require("../models").Orders;
+const senderMail = require("../mail/mail.service").mail;
 
 module.exports = {
   create(req, res) {
-      return Order
-      .create({
-        name: req.body.name,
-        phone: req.body.phone,
-        email: req.body.email,
-        message: req.body.message
-      })
+    return Order.create({
+      name: req.body.name,
+      phone: req.body.phone,
+      email: req.body.email,
+      message: req.body.message,
+    })
       .then((order) => res.status(201).send(order))
       .catch((error) => res.status(400).send(error));
   },
 
   list(req, res) {
-    return Order
-      .findAll({})
+    return Order.findAll({})
       .then((orders) => res.status(200).send(orders))
       .catch((error) => res.status(400).send(error));
   },
 
   retrieve(req, res) {
-    return Order
-      .findById(req.params.todoId, {
-        include: [{
+    return Order.findById(req.params.todoId, {
+      include: [
+        {
           model: TodoItem,
-          as: 'todoItems',
-        }],
-      })
+          as: "todoItems",
+        },
+      ],
+    })
       .then((todo) => {
         if (!todo) {
           return res.status(404).send({
-            message: 'Todo Not Found',
+            message: "Todo Not Found",
           });
         }
         return res.status(200).send(todo);
@@ -42,17 +40,18 @@ module.exports = {
   },
 
   update(req, res) {
-    return Todo
-      .findById(req.params.todoId, {
-        include: [{
+    return Todo.findById(req.params.todoId, {
+      include: [
+        {
           model: TodoItem,
-          as: 'todoItems',
-        }],
-      })
-      .then(todo => {
+          as: "todoItems",
+        },
+      ],
+    })
+      .then((todo) => {
         if (!todo) {
           return res.status(404).send({
-            message: 'Todo Not Found',
+            message: "Todo Not Found",
           });
         }
         return todo
@@ -66,12 +65,11 @@ module.exports = {
   },
 
   destroy(req, res) {
-    return Todo
-      .findById(req.params.todoId)
-      .then(todo => {
+    return Todo.findById(req.params.todoId)
+      .then((todo) => {
         if (!todo) {
           return res.status(400).send({
-            message: 'Todo Not Found',
+            message: "Todo Not Found",
           });
         }
         return todo

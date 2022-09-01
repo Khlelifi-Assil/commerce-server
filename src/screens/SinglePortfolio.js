@@ -1,109 +1,116 @@
-import React, {Component} from 'react';
-import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
-import ProgressiveImage from '../components/ProgressiveImage';
-import ScrollToTop from '../utils/ScrollToTop';
-import Footer from '../components/Footer';
+import React, { Component } from "react";
+import { Helmet } from "react-helmet";
+import styled from "styled-components";
+import ProgressiveImage from "../components/ProgressiveImage";
+import ScrollToTop from "../utils/ScrollToTop";
+import Footer from "../components/Footer";
 import {
-  ProjectContainer, ProjectSection, ProjectSectionContent, ProjectImage,
-  ProjectSectionHeading, ProjectSectionText, ProjectBackground
-} from '../components/Project';
-import ProjectHeader from '../components/ProjectHeader'
-import { Media } from '../utils/StyleUtils';
-import sliceSidebarLayersPlaceholder from '../assets/slice-sidebar-layers-placeholder.png';
-import {bindActionCreators} from "redux";
-import {getPortfolioById, getPortfolioIdSuccess} from "../redux/portfolio/portfolio.action";
-import {connect} from "react-redux";
+  ProjectContainer,
+  ProjectSection,
+  ProjectSectionContent,
+  ProjectImage,
+  ProjectSectionHeading,
+  ProjectSectionText,
+  ProjectBackground,
+} from "../components/Project";
+import ProjectHeader from "../components/ProjectHeader";
+import { Media } from "../utils/StyleUtils";
+import sliceSidebarLayersPlaceholder from "../assets/slice-sidebar-layers-placeholder.png";
+import { bindActionCreators } from "redux";
+import {
+  getPortfolioById,
+  getPortfolioIdSuccess,
+} from "../redux/portfolio/portfolio.action";
+import { connect } from "react-redux";
 import Loader from "../components/Loader";
 
-const prerender = window.location.port === '45678';
+const prerender = window.location.port === "45678";
 
-const title = 'Biomedical image collaboration';
-const description = 'This project involved designing a better way for biomedical educators and learners to annotate digital slides together.';
-const roles = [
-  'User Research',
-  'UX Design',
-  'Interface Design',
-];
+const title = "Biomedical image collaboration";
+const description =
+  "This project involved designing a better way for biomedical educators and learners to annotate digital slides together.";
+const roles = ["User Research", "UX Design", "Interface Design"];
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  getPortfolioById,
-  getPortfolioIdSuccess
-}, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      getPortfolioById,
+      getPortfolioIdSuccess,
+    },
+    dispatch
+  );
 
 class SinglePortfolio extends Component {
-
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
     this.props.getPortfolioById(this.props.match.params.id);
-
-
   }
 
   render() {
-    const {status, portfolio, loading} = this.props;
-    return(
-        <React.Fragment>
-          <ScrollToTop status={status} />
-          {portfolio &&
+    const { status, portfolio, loading } = this.props;
+    return (
+      <React.Fragment>
+        <ScrollToTop status={status} />
+        {portfolio && (
           <Helmet>
             <title>{`Создания веб сайтов под ключ | ${portfolio.payload.result.title}`}</title>
-            <meta name="description" content={portfolio.payload.result.description}/>
+            <meta
+              name="description"
+              content={portfolio.payload.result.description}
+            />
           </Helmet>
-          }
-          { portfolio && !loading &&
+        )}
+        {portfolio && !loading && (
           <ProjectContainer>
             <ProjectBackground
-                srcSet={`${portfolio.payload.result.bgImage} 1000w, ${portfolio.payload.result.bgImage} 1920w`}
-                placeholder={portfolio.payload.result.bgImage}
-                opacity={0.8}
-                entered={!prerender}
+              srcSet={`${portfolio.payload.result.bgImage} 1000w, ${portfolio.payload.result.bgImage} 1920w`}
+              placeholder={portfolio.payload.result.bgImage}
+              opacity={0.8}
+              entered={!prerender}
             />
             <ProjectHeader
-                title={portfolio.payload.result.title}
-                description={portfolio.payload.result.description}
-                url="https://www.best.edu.au/s/q2yjjvl7?data=8%404!9%4020303!10%40-15087&version=1"
-                roles={roles}
+              title={portfolio.payload.result.title}
+              description={portfolio.payload.result.description}
+              url="https://www.best.edu.au/s/q2yjjvl7?data=8%404!9%4020303!10%40-15087&version=1"
+              roles={roles}
             />
-            {portfolio && !loading && portfolio.payload.result.PortfolioItems.map((list, index) => (
+            {portfolio &&
+              !loading &&
+              portfolio.payload.result.PortfolioItems.map((list, index) => (
                 <ProjectSection>
                   <ProjectSectionColumns>
                     <SidebarImagesText>
                       <ProjectSectionHeading>{list.name}</ProjectSectionHeading>
-                      <ProjectSectionText>{list.description}</ProjectSectionText>
+                      <ProjectSectionText>
+                        {list.description}
+                      </ProjectSectionText>
                     </SidebarImagesText>
                     <SidebarImages>
                       <SidebarImage
-                          srcSet={`${list.desktopImg} 1920w, ${list.tabletImg} 700w, ${list.tabletImg} 300w`}
-                          placeholder={sliceSidebarLayersPlaceholder}
-                          alt={list.name}
-                          sizes={`(max-width: ${Media.mobile}) 200px, 343px`}
+                        srcSet={`${list.desktopImg} 1920w, ${list.tabletImg} 700w, ${list.tabletImg} 300w`}
+                        placeholder={sliceSidebarLayersPlaceholder}
+                        alt={list.name}
+                        sizes={`(max-width: ${Media.mobile}) 200px, 343px`}
                       />
                       <SidebarImage
-                          srcSet={`${portfolio.payload.result.bgImage} 300w, ${portfolio.payload.result.bgImage} 700w`}
-                          placeholder={portfolio.payload.result.bgImage}
-                          alt="Multiple user annotations on a shared layer."
-                          sizes={`(max-width: ${Media.mobile}) 200px, 343px`}
+                        srcSet={`${portfolio.payload.result.bgImage} 300w, ${portfolio.payload.result.bgImage} 700w`}
+                        placeholder={portfolio.payload.result.bgImage}
+                        alt="Multiple user annotations on a shared layer."
+                        sizes={`(max-width: ${Media.mobile}) 200px, 343px`}
                       />
                     </SidebarImages>
                   </ProjectSectionColumns>
                 </ProjectSection>
-            ))}
+              ))}
             <Footer />
           </ProjectContainer>
-          }
-          {loading &&
-          <Loader
-              size={'300px'}
-              color={'rgba(51,234,255,1)'}
-          />
-          }
-        </React.Fragment>
-    )
+        )}
+        {loading && <Loader size={"300px"} color={"rgba(51,234,255,1)"} />}
+      </React.Fragment>
+    );
   }
-};
+}
 
 const ProjectTextRow = styled.div`
   max-width: 660px;
@@ -223,9 +230,8 @@ const SidebarImage = styled(ProgressiveImage)`
 const mapStateToProps = function (state) {
   return {
     portfolio: state.portfolio.payload,
-    loading: state.portfolio.loading
+    loading: state.portfolio.loading,
+  };
+};
 
-  }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(SinglePortfolio);
+export default connect(mapStateToProps, mapDispatchToProps)(SinglePortfolio);

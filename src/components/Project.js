@@ -1,12 +1,10 @@
-import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
-import { Media, AnimFade, ColorTint } from '../utils/StyleUtils';
-import ProgressiveImage from './ProgressiveImage';
-
+import React from "react";
+import styled, { css, keyframes } from "styled-components";
+import { Media, AnimFade, ColorTint } from "../utils/StyleUtils";
+import ProgressiveImage from "./ProgressiveImage";
 
 const initDelay = 300;
-const prerender = window.location.port === '45678';
-
+const prerender = window.location.port === "45678";
 
 /* const changeTable = (e) => {
      const datavalue = e.currentTarget.dataset.value;
@@ -20,18 +18,18 @@ export class ProjectBackground extends React.Component {
 
     this.state = {
       offset: 0,
-    }
+    };
 
     this.scheduledAnimationFrame = false;
     this.lastScrollY = 0;
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
   handleScroll = () => {
@@ -43,42 +41,46 @@ export class ProjectBackground extends React.Component {
       this.setState({ offset: this.lastScrollY * 0.4 });
       this.scheduledAnimationFrame = false;
     });
-  }
+  };
 
   render() {
     const { offset } = this.state;
 
-    return (
-      <ProjectBackgroundImage
-        offset={offset}
-        {...this.props}
-      />
-    );
+    return <ProjectBackgroundImage offset={offset} {...this.props} />;
   }
 }
 
-
-
-export const ProjectPriceTable = ({ name= {}, currency = {}, price = {}, cent = {}, title = {}, fields=[] }) => (
-    <ProjectTable>
-            <ProjectDetails entered={!prerender}>
-                <ProjectTableName>{name.name}</ProjectTableName>
-                <ProjectTableItem>
-                    <ProjectTableItemHeder>
-                        <span>{currency.currency}</span>{price.price}<sup>{cent.cent}</sup>
-                        <ProjectTableItemHederTitle>{title.title}</ProjectTableItemHederTitle>
-                    </ProjectTableItemHeder>
-                    <div>
-                        <ProjectTableContent>
-                            {fields && fields.map((field, index) => (
-                                <ProjectTableList key={`role_${index}`}>{field.name}</ProjectTableList>
-                            ))}
-                        </ProjectTableContent>
-                    </div>
-
-                </ProjectTableItem>
-            </ProjectDetails>
-    </ProjectTable>
+export const ProjectPriceTable = ({
+  name = {},
+  currency = {},
+  price = {},
+  cent = {},
+  title = {},
+  fields = [],
+}) => (
+  <ProjectTable>
+    <ProjectDetails entered={!prerender}>
+      <ProjectTableName>{name.name}</ProjectTableName>
+      <ProjectTableItem>
+        <ProjectTableItemHeder>
+          <span>{currency.currency}</span>
+          {price.price}
+          <sup>{cent.cent}</sup>
+          <ProjectTableItemHederTitle>{title.title}</ProjectTableItemHederTitle>
+        </ProjectTableItemHeder>
+        <div>
+          <ProjectTableContent>
+            {fields &&
+              fields.map((field, index) => (
+                <ProjectTableList key={`role_${index}`}>
+                  {field.name}
+                </ProjectTableList>
+              ))}
+          </ProjectTableContent>
+        </div>
+      </ProjectTableItem>
+    </ProjectDetails>
+  </ProjectTable>
 );
 
 export const ProjectContainer = styled.article`
@@ -123,13 +125,13 @@ export const ProjectSection = styled.section`
   }
 
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
-    padding-left: ${props => props.theme.spacingOuter.mobile};
-    padding-right: ${props => props.theme.spacingOuter.mobile};
+    padding-left: ${(props) => props.theme.spacingOuter.mobile};
+    padding-right: ${(props) => props.theme.spacingOuter.mobile};
   }
-  
+
   @media (max-width: ${Media.mobileSm}), (max-height: ${Media.mobileSm}) {
-    padding-left: ${props => props.theme.spacingOuter.mobileSm};
-    padding-right: ${props => props.theme.spacingOuter.mobileSm};
+    padding-left: ${(props) => props.theme.spacingOuter.mobileSm};
+    padding-right: ${(props) => props.theme.spacingOuter.mobileSm};
   }
 
   @media ${Media.mobileLS} {
@@ -137,7 +139,9 @@ export const ProjectSection = styled.section`
     padding-right: 100px;
   }
 
-  ${props => props.light && `
+  ${(props) =>
+    props.light &&
+    `
     background: ${ColorTint(props.theme.colorBackground(1), 0.036)};
     padding-top: 120px;
     padding-bottom: 140px;
@@ -155,9 +159,9 @@ export const ProjectSection = styled.section`
 `;
 
 export const ProjectBackgroundImage = styled(ProgressiveImage).attrs({
-  alt: '',
-  role: 'presentation',
-  opacity: props => props.opacity ? props.opacity : 0.7,
+  alt: "",
+  role: "presentation",
+  opacity: (props) => (props.opacity ? props.opacity : 0.7),
   style: ({ offset }) => ({
     transform: `translate3d(0, ${offset}px, 0)`,
   }),
@@ -171,9 +175,11 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs({
   height: 800px;
   opacity: 0;
 
-  ${props => props.entered && css`
-    animation: ${AnimFade} 2s ease ${initDelay}ms forwards;
-  `}
+  ${(props) =>
+    props.entered &&
+    css`
+      animation: ${AnimFade} 2s ease ${initDelay}ms forwards;
+    `}
 
   img {
     object-fit: cover;
@@ -192,13 +198,15 @@ export const ProjectBackgroundImage = styled(ProgressiveImage).attrs({
     width: 100%;
     height: 100%;
     background: linear-gradient(180deg,
-      ${props => props.theme.colorBackground(props.opacity)} 0%,
-      ${props => props.theme.colorBackground(1)} 100%
+      ${(props) => props.theme.colorBackground(props.opacity)} 0%,
+      ${(props) => props.theme.colorBackground(1)} 100%
     );
   }
 `;
 
-export const ProjectHeaderContainer = styled(ProjectSection.withComponent('header'))`
+export const ProjectHeaderContainer = styled(
+  ProjectSection.withComponent("header")
+)`
   padding-top: 120px;
   padding-bottom: 0;
 
@@ -249,9 +257,12 @@ const AnimFadeSlide = keyframes`
 export const ProjectDetails = styled.div`
   opacity: 0;
 
-  ${props => props.entered && css`
-    animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay}ms forwards;
-  `}
+  ${(props) =>
+    props.entered &&
+    css`
+      animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin}
+        ${initDelay}ms forwards;
+    `}
 `;
 
 export const ProjectTitle = styled.h1`
@@ -288,14 +299,17 @@ export const ProjectMeta = styled.ul`
   padding: 0;
   margin-top: 10px;
   opacity: 0;
-  
-    .active {
-        background: rgba(0,229,255,0.4);
-      }
-      
-  ${props => props.entered && css`
-    animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin} ${initDelay + 200}ms forwards;
-  `}
+
+  .active {
+    background: rgba(0, 229, 255, 0.4);
+  }
+
+  ${(props) =>
+    props.entered &&
+    css`
+      animation: ${AnimFadeSlide} 1.4s ${props.theme.curveFastoutSlowin}
+        ${initDelay + 200}ms forwards;
+    `}
 `;
 
 export const ProjectMetaItem = styled.li`
@@ -303,10 +317,10 @@ export const ProjectMetaItem = styled.li`
   font-size: 16px;
   font-weight: 400;
   cursor: pointer;
-  border-top: 1px solid ${props => props.theme.colorText(0.2)};
+  border-top: 1px solid ${(props) => props.theme.colorText(0.2)};
 
   &:last-child {
-    border-bottom: 1px solid ${props => props.theme.colorText(0.2)};
+    border-bottom: 1px solid ${(props) => props.theme.colorText(0.2)};
   }
 
   @media (max-width: ${Media.tablet}) {
@@ -345,8 +359,8 @@ export const ProjectImage = styled.div`
   max-width: 100%;
 
   &:before {
-    content: '';
-    background: ${props => props.theme.colorPrimary(1)};
+    content: "";
+    background: ${(props) => props.theme.colorPrimary(1)};
     position: absolute;
     top: 0;
     right: 0;
@@ -362,15 +376,18 @@ export const ProjectImage = styled.div`
     width: 100%;
   }
 
-  ${props => props.entered && css`
-    &:before {
-      animation: ${AnimProjectImage} 1.4s ${props.theme.curveFastoutSlowin} 0.6s;
-    }
+  ${(props) =>
+    props.entered &&
+    css`
+      &:before {
+        animation: ${AnimProjectImage} 1.4s ${props.theme.curveFastoutSlowin}
+          0.6s;
+      }
 
-    div {
-      animation: ${AnimFade} 0.8s ease 1.4s forwards;
-    }
-  `}
+      div {
+        animation: ${AnimFade} 0.8s ease 1.4s forwards;
+      }
+    `}
 `;
 
 export const ProjectSectionContent = styled.div`
@@ -400,7 +417,7 @@ export const ProjectSectionText = styled.p`
   ba
   margin: 0;
   margin-top: 28px;
-  color: ${props => props.theme.colorText(0.7)};
+  color: ${(props) => props.theme.colorText(0.7)};
 
   @media (max-width: ${Media.mobile}) {
     font-size: 18px;
@@ -409,21 +426,21 @@ export const ProjectSectionText = styled.p`
 `;
 
 export const ProjectTable = styled.div`
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 300px;
-    border-radius: 5px 5px 0 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 300px;
+  border-radius: 5px 5px 0 0;
 `;
 export const ProjectTableName = styled.span`
-  font-family:'Open Sans';
+  font-family: "Open Sans";
   font-weight: 800;
   display: flex;
   justify-content: center;
   font-size: 29px;
   text-transform: uppercase;
   color: white;
-  background-color: ${props => props.theme.colorTable('#eac80d')};
+  background-color: ${(props) => props.theme.colorTable("#eac80d")};
   text-align: center;
   padding: 10px 0;
 `;
@@ -432,7 +449,7 @@ export const ProjectTableItem = styled.div`
   width: 300px;
   background-color: #2b2937;
   border-radius: 0px 0px 5px 5px;
-  font-family:'Open Sans';
+  font-family: "Open Sans";
   font-style: condensed;
   font-size: 90px;
   color: white;
@@ -440,35 +457,36 @@ export const ProjectTableItem = styled.div`
 `;
 
 export const ProjectTableItemHeder = styled.div`
-    div, span{
-        font-size: 32px;
-    }
-    sup{
-        font-size: 40px;
-    }
+  div,
+  span {
+    font-size: 32px;
+  }
+  sup {
+    font-size: 40px;
+  }
 `;
 
 export const ProjectTableItemHederTitle = styled.p`
-    font-size: 14px;
-    color: #575757;
-    padding: 0px;
-    margin: -10px;
+  font-size: 14px;
+  color: #575757;
+  padding: 0px;
+  margin: -10px;
 `;
 
 export const ProjectTableContent = styled.ul`
-    list-style: none;
-    font-size: 15px;
-    font-family:'Open Sans';
-    color: #9095aa;
-    padding: 0px;
-    margin: 0px;
+  list-style: none;
+  font-size: 15px;
+  font-family: "Open Sans";
+  color: #9095aa;
+  padding: 0px;
+  margin: 0px;
 `;
 
 export const ProjectTableList = styled.li`
-    border-bottom: 1px solid #494a5a;
-    padding: 0px;
-    margin: 0px;
-    text-align: center;
-    height: 52px;
-    line-height: 52px;
+  border-bottom: 1px solid #494a5a;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  height: 52px;
+  line-height: 52px;
 `;

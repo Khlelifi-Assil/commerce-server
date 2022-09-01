@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import autosize from 'autosize';
+import React, { Component } from "react";
+import autosize from "autosize";
 
 export default class TextArea extends Component {
   componentDidMount() {
@@ -12,9 +12,9 @@ export default class TextArea extends Component {
     return (
       <textarea
         {...props}
-        ref={node => this.textarea = node}
+        ref={(node) => (this.textarea = node)}
         className={className}
-        style={{ resize: allowResize ? null : 'none' }}
+        style={{ resize: allowResize ? null : "none" }}
       />
     );
   }

@@ -1,10 +1,10 @@
-import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
-import { TransitionGroup, Transition } from 'react-transition-group';
-import { Media, AnimFade } from '../utils/StyleUtils';
-import DecoderText from '../components/DecoderText';
+import React from "react";
+import styled, { css, keyframes } from "styled-components";
+import { TransitionGroup, Transition } from "react-transition-group";
+import { Media, AnimFade } from "../utils/StyleUtils";
+import DecoderText from "../components/DecoderText";
 
-const prerender = window.location.port === '45678';
+const prerender = window.location.port === "45678";
 
 const Intro = ({
   id,
@@ -17,56 +17,62 @@ const Intro = ({
 }) => {
   return (
     <IntroContent ref={sectionRef} id={id}>
-      <Transition
-        appear
-        in={!prerender}
-        timeout={3000}
-      >
+      <Transition appear in={!prerender} timeout={3000}>
         {(appearStatus) => (
           <React.Fragment>
-            <IntroBackground
-              ref={threeCanvas}
-              isLoaded={backgroundLoaded}
-            />
+            <IntroBackground ref={threeCanvas} isLoaded={backgroundLoaded} />
             <IntroText>
               <IntroName>
-                <DecoderText text="Веб студия" start={!prerender} offset={120} />
+                <DecoderText
+                  text="Веб студия"
+                  start={!prerender}
+                  offset={120}
+                />
               </IntroName>
-              <IntroTitle aria-label={[
-                disciplines.slice(0, -1).join(', '),
-                disciplines.slice(-1)[0],
-              ].join(', and ')}>
+              <IntroTitle
+                aria-label={[
+                  disciplines.slice(0, -1).join(", "),
+                  disciplines.slice(-1)[0],
+                ].join(", and ")}
+              >
                 <IntroTitleRow>
-                  <IntroTitleWord status={appearStatus} delay="0.15s">Nurmaget</IntroTitleWord>
+                  <IntroTitleWord status={appearStatus} delay="0.15s">
+                    Nurmaget
+                  </IntroTitleWord>
                   <IntroTitleLine status={appearStatus} />
                 </IntroTitleRow>
                 <TransitionGroup component={IntroTitleRow}>
-                  {!prerender && disciplines.map((item, index) => (
-                    <Transition
-                      appear
-                      timeout={{ enter: 3000, exit: 2000 }}
-                      key={`${item}_${index}`}
-                      mountOnEnter
-                      unmountOnExit
-                    >
-                      {status => (
-                        <IntroTitleWord plus delay="0.5s" status={status}>
-                          {item}
-                        </IntroTitleWord>
-                      )}
-                    </Transition>
-                  )).filter((item, index) => index === disciplineIndex)}
+                  {!prerender &&
+                    disciplines
+                      .map((item, index) => (
+                        <Transition
+                          appear
+                          timeout={{ enter: 3000, exit: 2000 }}
+                          key={`${item}_${index}`}
+                          mountOnEnter
+                          unmountOnExit
+                        >
+                          {(status) => (
+                            <IntroTitleWord plus delay="0.5s" status={status}>
+                              {item}
+                            </IntroTitleWord>
+                          )}
+                        </Transition>
+                      ))
+                      .filter((item, index) => index === disciplineIndex)}
                 </TransitionGroup>
               </IntroTitle>
             </IntroText>
-            <ScrollIndicator isHidden={hideScrollIndicator} status={appearStatus} />
-
+            <ScrollIndicator
+              isHidden={hideScrollIndicator}
+              status={appearStatus}
+            />
           </React.Fragment>
         )}
       </Transition>
     </IntroContent>
   );
-}
+};
 
 const IntroContent = styled.section`
   height: 100vh;
@@ -105,13 +111,15 @@ const IntroBackground = styled.div`
   canvas {
     position: absolute;
     animation-duration: 3s;
-    animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+    animation-timing-function: ${(props) => props.theme.curveFastoutSlowin};
     animation-fill-mode: forwards;
     opacity: 0;
 
-    ${props => props.isLoaded && css`
-      animation-name: ${AnimBackgroundFade};
-    `}
+    ${(props) =>
+      props.isLoaded &&
+      css`
+        animation-name: ${AnimBackgroundFade};
+      `}
   }
 `;
 
@@ -120,7 +128,7 @@ const IntroText = styled.header`
   width: 100%;
   position: relative;
   top: -20px;
-  padding: 0 ${props => props.theme.spacingOuter.desktop};
+  padding: 0 ${(props) => props.theme.spacingOuter.desktop};
 
   @media (min-width: ${Media.desktop}) {
     padding: 0;
@@ -132,7 +140,7 @@ const IntroText = styled.header`
   }
 
   @media (max-width: ${Media.mobile}), (max-height: ${Media.mobile}) {
-    padding: 0 ${props => props.theme.spacingOuter.mobile};
+    padding: 0 ${(props) => props.theme.spacingOuter.mobile};
     top: 0;
   }
 
@@ -145,13 +153,15 @@ const IntroName = styled.div`
   text-transform: uppercase;
   font-size: 24px;
   letter-spacing: 0.3em;
-  color: ${props => props.theme.colorText(0.8)};
+  color: ${(props) => props.theme.colorText(0.8)};
   margin-bottom: 60px;
   margin-top: 0;
   font-weight: 500;
   line-height: 1;
   opacity: 0;
-  animation: ${css`${AnimFade} 0.4s ease 0.6s forwards`};
+  animation: ${css`
+    ${AnimFade} 0.4s ease 0.6s forwards
+  `};
 
   @media (min-width: ${Media.desktop}) {
     font-size: 28px;
@@ -205,7 +215,7 @@ const IntroTitleRow = styled.div`
   position: relative;
 `;
 
-const AnimTextReveal = props => keyframes`
+const AnimTextReveal = (props) => keyframes`
   0% { color: ${props.theme.colorText(0)}; }
   50% { color: ${props.theme.colorText(0)}; }
   60% { color: ${props.theme.colorText(1)}; }
@@ -242,19 +252,25 @@ const IntroTitleWord = styled.div`
   line-height: 1;
   animation-duration: 1.5s;
   animation-fill-mode: forwards;
-  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
-  color: ${props => props.theme.colorText(0)};
+  animation-timing-function: ${(props) => props.theme.curveFastoutSlowin};
+  color: ${(props) => props.theme.colorText(0)};
   transition: opacity 0.5s ease 0.4s;
 
-  ${props => props.status === 'entering' && css`
-    animation-name: ${AnimTextReveal(props)};
-  `}
+  ${(props) =>
+    props.status === "entering" &&
+    css`
+      animation-name: ${AnimTextReveal(props)};
+    `}
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     color: ${props.theme.colorText(1)};
   `}
 
-  ${props => props.status === 'exiting' && `
+  ${(props) =>
+    props.status === "exiting" &&
+    `
     color: ${props.theme.colorText(1)};
     opacity: 0;
     position: absolute;
@@ -263,14 +279,14 @@ const IntroTitleWord = styled.div`
   `}
 
   &:after {
-    content: '';
+    content: "";
     width: 100%;
     height: 100%;
-    background: ${props => props.theme.colorPrimary(1)};
+    background: ${(props) => props.theme.colorPrimary(1)};
     opacity: 0;
     animation-duration: 1.5s;
     animation-fill-mode: forwards;
-    animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+    animation-timing-function: ${(props) => props.theme.curveFastoutSlowin};
     transform-origin: left;
     position: absolute;
     top: 0;
@@ -279,18 +295,24 @@ const IntroTitleWord = styled.div`
     left: 0;
     z-index: 1;
 
-    ${props => props.status === 'entering' && css`
-      animation-name: ${AnimTextRevealMask};
-    `}
+    ${(props) =>
+      props.status === "entering" &&
+      css`
+        animation-name: ${AnimTextRevealMask};
+      `}
 
-    ${props => props.status === 'entered' && `
+    ${(props) =>
+      props.status === "entered" &&
+      `
       opacity: 1;
       transform: scaleX(0);
       transform-origin: right;
     `}
   }
 
-  ${props => props.delay && `
+  ${(props) =>
+    props.delay &&
+    `
     animation-delay: ${props.delay};
 
     &:after {
@@ -298,7 +320,9 @@ const IntroTitleWord = styled.div`
     }
   `}
 
-  ${props => props.plus && `
+  ${(props) =>
+    props.plus &&
+    `
     &:before {
       content: '+';
       margin-right: 10px;
@@ -319,7 +343,7 @@ const AnimLineIntro = keyframes`
 `;
 
 const IntroTitleLine = styled.div`
-  content: '';
+  content: "";
   height: 2px;
   background: rgba(255, 255, 255, 0.3);
   width: 120%;
@@ -328,15 +352,19 @@ const IntroTitleLine = styled.div`
   animation-duration: 0.8s;
   animation-delay: 1s;
   animation-fill-mode: forwards;
-  animation-timing-function: ${props => props.theme.curveFastoutSlowin};
+  animation-timing-function: ${(props) => props.theme.curveFastoutSlowin};
   transform-origin: left;
   opacity: 0;
 
-  ${props => props.status === 'entering' && css`
-    animation-name: ${AnimLineIntro};
-  `}
+  ${(props) =>
+    props.status === "entering" &&
+    css`
+      animation-name: ${AnimLineIntro};
+    `}
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     transform: scaleX(1);
     opacity: 1;
   `}
@@ -358,7 +386,7 @@ const AnimScrollIndicator = keyframes`
 `;
 
 const ScrollIndicator = styled.div`
-  border: 2px solid ${props => props.theme.colorWhite(0.4)};
+  border: 2px solid ${(props) => props.theme.colorWhite(0.4)};
   border-radius: 20px;
   width: 26px;
   height: 38px;
@@ -367,26 +395,32 @@ const ScrollIndicator = styled.div`
   transition: all 0.4s ease;
   opacity: 0;
 
-  ${props => props.status === 'entered' && `
+  ${(props) =>
+    props.status === "entered" &&
+    `
     opacity: 1;
   `}
 
-  ${props => props.isHidden && `
+  ${(props) =>
+    props.isHidden &&
+    `
     opacity: 0;
     transform: translateY(20px);
   `}
 
   &:before {
-    content: '';
+    content: "";
     height: 7px;
     width: 2px;
-    background: ${props => props.theme.colorWhite(0.4)};
+    background: ${(props) => props.theme.colorWhite(0.4)};
     border-radius: 4px;
     position: absolute;
     top: 6px;
     left: 50%;
     transform: translateX(-1px);
-    animation: ${css`${AnimScrollIndicator} 2s ease infinite`};
+    animation: ${css`
+      ${AnimScrollIndicator} 2s ease infinite
+    `};
   }
 
   @media ${Media.mobileLS} {

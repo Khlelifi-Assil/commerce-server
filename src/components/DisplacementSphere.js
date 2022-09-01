@@ -1,9 +1,9 @@
-import * as THREE from 'three';
-import { Easing, Tween, autoPlay } from 'es6-tween';
-import innerHeight from 'ios-inner-height';
-import VertShader from '../shaders/SphereVertShader';
-import FragmentShader from '../shaders/SphereFragmentShader';
-import { Media } from '../utils/StyleUtils';
+import * as THREE from "three";
+import { Easing, Tween, autoPlay } from "es6-tween";
+import innerHeight from "ios-inner-height";
+import VertShader from "../shaders/SphereVertShader";
+import FragmentShader from "../shaders/SphereFragmentShader";
+import { Media } from "../utils/StyleUtils";
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -22,10 +22,10 @@ class DisplacementSphere {
     this.ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
 
     this.uniforms = THREE.UniformsUtils.merge([
-      THREE.UniformsLib['ambient'],
-      THREE.UniformsLib['lights'],
+      THREE.UniformsLib["ambient"],
+      THREE.UniformsLib["lights"],
       THREE.ShaderLib.phong.uniforms,
-      { time: { type: 'f', value: 0 } },
+      { time: { type: "f", value: 0 } },
     ]);
 
     this.material = new THREE.ShaderMaterial({
@@ -60,17 +60,17 @@ class DisplacementSphere {
     this.animating = true;
 
     this.container.appendChild(this.renderer.domElement);
-    window.addEventListener('resize', this.onWindowResize);
-    window.addEventListener('mousemove', this.onMouseMove);
+    window.addEventListener("resize", this.onWindowResize);
+    window.addEventListener("mousemove", this.onMouseMove);
     this.onWindowResize();
     this.animate();
-  }
+  };
 
   remove = () => {
     this.animating = false;
     cancelAnimationFrame(this.animate);
-    window.removeEventListener('resize', this.onWindowResize);
-    window.removeEventListener('mousemove', this.onMouseMove);
+    window.removeEventListener("resize", this.onWindowResize);
+    window.removeEventListener("mousemove", this.onMouseMove);
     this.scene.remove(this.sphere);
     this.sphere.geometry.dispose();
     this.sphere.material.dispose();
@@ -86,7 +86,7 @@ class DisplacementSphere {
     this.uniforms = null;
     this.renderer.context = null;
     this.renderer.domElement = null;
-  }
+  };
 
   onWindowResize = () => {
     const windowWidth = window.innerWidth;
@@ -107,7 +107,7 @@ class DisplacementSphere {
       this.sphere.position.x = 25;
       this.sphere.position.y = 10;
     }
-  }
+  };
 
   onMouseMove = (event) => {
     const mouseY = event.clientY / window.innerHeight;
@@ -117,20 +117,20 @@ class DisplacementSphere {
       .to({ x: mouseY / 2, y: mouseX / 2 }, 2000)
       .easing(Easing.Quartic.Out)
       .start();
-  }
+  };
 
   animate = () => {
     if (this.animating) {
       requestAnimationFrame(this.animate);
       this.render();
     }
-  }
+  };
 
   render = () => {
-    this.uniforms.time.value = .00005 * (Date.now() - start);
+    this.uniforms.time.value = 0.00005 * (Date.now() - start);
     this.sphere.rotation.z += 0.001;
     this.renderer.render(this.scene, this.camera);
-  }
+  };
 }
 
 export default DisplacementSphere;
